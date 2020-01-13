@@ -1,6 +1,6 @@
 package facades;
 
-import entities.Person;
+import entities.Driver;
 import utils.EMF_Creator;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -60,9 +60,9 @@ public class FacadeExampleTest {
         EntityManager em = emf.createEntityManager();
         try {
             em.getTransaction().begin();
-            em.createNamedQuery("RenameMe.deleteAllRows").executeUpdate();
-            em.persist(new Person("first name1", "last name1", "phone1", "email1"));
-            em.persist(new Person("first name2", "last name2", "phone2", "email2"));
+            em.createNamedQuery("Driver.deleteAllRows").executeUpdate();
+            em.persist(new Driver("name1"));
+            em.persist(new Driver("name2"));
 
             em.getTransaction().commit();
         } finally {

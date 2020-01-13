@@ -1,7 +1,7 @@
 package rest;
 
 import com.google.gson.Gson;
-import dtos.PersonDTO;
+import dtos.DriverDTO;
 import entities.Role;
 import entities.User;
 import facades.DataFromSwappi;
@@ -91,7 +91,7 @@ public class DemoResource {
     @Produces(MediaType.APPLICATION_JSON)
     @Path("user/people")
     @RolesAllowed({"user", "admin"})
-    public List<PersonDTO> getFromUserPeople() throws MalformedURLException, IOException, InterruptedException, ExecutionException {
+    public List<DriverDTO> getFromUserPeople() throws MalformedURLException, IOException, InterruptedException, ExecutionException {
         return dfs.getPeople();
     }
 

@@ -5,23 +5,23 @@
  */
 package dtos;
 
-import entities.Hobby;
+import entities.Truck;
 
 /**
  *
  * @author Mkhansen
  */
-public class HobbyDTO {
+public class TruckDTO {
 
     private String name;
-    private String description;
+    private String capacity;
 
-    public HobbyDTO() {
+    public TruckDTO() {
     }
 
-    public HobbyDTO(Hobby hobby) {
-        this.name = hobby.getName();
-        this.description = hobby.getDescription();
+    public TruckDTO(Truck truck) {
+        this.name = truck.getName();
+        this.capacity = truck.getCapacity();
     }
     
     public String getName() {
@@ -32,18 +32,17 @@ public class HobbyDTO {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getCapacity() {
+        return capacity;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setCapacity(String capacity) {
+        this.capacity = capacity;
     }
 
     @Override
     public String toString() {
-        return "HobbyDTO{" +  "name=" + name + ", description=" + description + '}';
+        return "TruckDTO{" + "name=" + name + ", capacity=" + capacity + '}';
     }
 
-    
 }

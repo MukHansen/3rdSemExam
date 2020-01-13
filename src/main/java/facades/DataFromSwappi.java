@@ -6,7 +6,7 @@
 package facades;
 
 import com.google.gson.Gson;
-import dtos.PersonDTO;
+import dtos.DriverDTO;
 import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -33,11 +33,11 @@ public class DataFromSwappi {
     public DataFromSwappi() {
     }
 
-    public List<PersonDTO> getPeople() throws InterruptedException, ExecutionException {
+    public List<DriverDTO> getPeople() throws InterruptedException, ExecutionException {
         final Integer[] hostID = {1, 2, 3, 4, 5};
         final ExecutorService threadpool = Executors.newCachedThreadPool();
         Queue<Future<String>> futures = new ArrayBlockingQueue(hostID.length);
-        List<PersonDTO> listDTO = new ArrayList<PersonDTO>();
+        List<DriverDTO> listDTO = new ArrayList<DriverDTO>();
 
         for (int i = 0;
                 i < hostID.length;
@@ -56,7 +56,7 @@ public class DataFromSwappi {
             Future<String> fut = futures.poll();
             if (fut.isDone()) {
                 Gson g = new Gson();
-                PersonDTO p = g.fromJson(fut.get(), PersonDTO.class);
+                DriverDTO p = g.fromJson(fut.get(), DriverDTO.class);
                 listDTO.add(p);
             } else {
                 futures.add(fut);
