@@ -36,8 +36,6 @@ public class CargoDTO {
         this.delivery = delivery;
     }
 
-
-
     public String getName() {
         return name;
     }

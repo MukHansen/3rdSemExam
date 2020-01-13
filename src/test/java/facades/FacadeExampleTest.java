@@ -61,8 +61,8 @@ public class FacadeExampleTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Driver.deleteAllRows").executeUpdate();
-            em.persist(new Driver("name1"));
-            em.persist(new Driver("name2"));
+            em.persist(new Driver("firstName1", "lastName1"));
+            em.persist(new Driver("firstName2", "lastName2"));
 
             em.getTransaction().commit();
         } finally {

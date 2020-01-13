@@ -21,6 +21,7 @@ public class DeliveryDTO {
     private LocalDate date;
     private String fromLocation;
     private String destination;
+    private TruckDTO truckDTO;
 
     public DeliveryDTO() {
     }
@@ -43,6 +44,18 @@ public class DeliveryDTO {
         this.cargoList = cargoList;
     }
 
+    public void addCargo(CargoDTO cargo) {
+        this.cargoList.add(cargo);
+    }
+
+    public TruckDTO getTruckDTO() {
+        return truckDTO;
+    }
+
+    public void setTruckDTO(TruckDTO truckDTO) {
+        this.truckDTO = truckDTO;
+    }
+    
     public LocalDate getDate() {
         return date;
     }

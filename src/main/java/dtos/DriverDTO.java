@@ -16,28 +16,34 @@ import java.util.List;
  */
 public class DriverDTO {
 
-    private String name;
+    private String firstName;
+    private String lastName;
     private List<TruckDTO> trucks = new ArrayList<>();
 
     public DriverDTO() {
     }
 
     public DriverDTO(Driver driver) {
-        this.name = driver.getName();
-
-        for (Truck truck : driver.getTrucks()) {
-            trucks.add(new TruckDTO(truck));
-        }
+        this.firstName = driver.getFirstName();
+        this.lastName = driver.getLastName();
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+    
     public List<TruckDTO> getTrucks() {
         return trucks;
     }
@@ -50,4 +56,8 @@ public class DriverDTO {
         this.trucks.add(truck);
     }
 
+    @Override
+    public String toString() {
+        return "DriverDTO{" + "name=" + firstName + ", trucks=" + trucks + '}';
+    }
 }

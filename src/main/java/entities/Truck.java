@@ -8,6 +8,7 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -31,18 +32,18 @@ public class Truck implements Serializable {
     private String name;
     private String capacity;
 
-    @ManyToMany(mappedBy = "trucks")
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Driver> drivers = new ArrayList<>();
 
-    @OneToMany(mappedBy = "truck")
+    @OneToMany(mappedBy = "truck", cascade = CascadeType.PERSIST)
     private List<Delivery> deliveries = new ArrayList<>();
 
     public Truck() {
     }
 
-    public Truck(String name, String description) {
+    public Truck(String name, String capacity) {
         this.name = name;
-        this.capacity = description;
+        this.capacity = capacity;
     }
 
     public Long getId() {

@@ -37,7 +37,7 @@ public class Delivery implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Truck truck;
 
-    @OneToMany(mappedBy = "delivery")
+    @OneToMany(mappedBy = "delivery", cascade = CascadeType.PERSIST)
     private List<Cargo> cargoList = new ArrayList<>();
 
     public Delivery() {

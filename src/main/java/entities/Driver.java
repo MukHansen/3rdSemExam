@@ -14,7 +14,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 
 /**
@@ -29,19 +28,18 @@ public class Driver implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
+    private String firstName;
+    private String lastName;
     
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    private Delivery address;
-    
-    @ManyToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(mappedBy = "drivers", cascade = CascadeType.PERSIST)
     private List<Truck> trucks = new ArrayList<>();
 
     public Driver() {
     }
 
-    public Driver(String name) {
-        this.name = name;
+    public Driver(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public Integer getId() {
@@ -52,22 +50,22 @@ public class Driver implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public Delivery getAddress() {
-        return address;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setAddress(Delivery address) {
-        this.address = address;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
-
+    
     public List<Truck> getTrucks() {
         return trucks;
     }
@@ -79,7 +77,7 @@ public class Driver implements Serializable {
 
     @Override
     public String toString() {
-        return "Driver{" + "id=" + id + ", name=" + name + ", address=" + address + ", trucks=" + trucks + '}';
+        return "Driver{" + "id=" + id + ", name=" + firstName + ", trucks=" + trucks + '}';
     }
 
 }
