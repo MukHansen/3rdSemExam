@@ -13,7 +13,8 @@ import entities.Delivery;
  * @author Mkhansen;
  */
 public class CargoDTO {
-    
+
+    private Long id;
     private String name;
     private String weight;
     private int units;
@@ -21,19 +22,19 @@ public class CargoDTO {
 
     public CargoDTO() {
     }
-    
-    CargoDTO(Cargo cargo) {
+
+    public CargoDTO(Cargo cargo) {
         this.name = cargo.getName();
         this.weight = cargo.getWeight();
         this.units = cargo.getUnits();
-        this.delivery = cargo.getDelivery();
     }
-    
-    public CargoDTO(String name, String weight, int units, Delivery delivery) {
-        this.name = name;
-        this.weight = weight;
-        this.units = units;
-        this.delivery = delivery;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -72,5 +73,5 @@ public class CargoDTO {
     public String toString() {
         return "CargoDTO{" + "name=" + name + ", weight=" + weight + ", units=" + units + ", delivery=" + delivery + '}';
     }
-    
+
 }

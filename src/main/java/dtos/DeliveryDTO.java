@@ -16,8 +16,9 @@ import java.util.List;
  * @author Mkhansen
  */
 public class DeliveryDTO {
-
-    private List<CargoDTO> cargoList = new ArrayList();
+    
+    private Long id;
+    private List<CargoDTO> cargoList;
     private LocalDate date;
     private String fromLocation;
     private String destination;
@@ -29,11 +30,19 @@ public class DeliveryDTO {
     public DeliveryDTO(Delivery delivery) {
         this.date = delivery.getDate();
 
-        for (Cargo cargo : delivery.getCargoList()) {
-            cargoList.add(new CargoDTO(cargo));
-        }
+//        for (Cargo cargo : delivery.getCargoList()) {
+//            cargoList.add(new CargoDTO(cargo));
+//        }
         this.fromLocation = delivery.getFromLocation();
         this.destination = delivery.getDestination();
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public List<CargoDTO> getCargoList() {
@@ -45,6 +54,9 @@ public class DeliveryDTO {
     }
 
     public void addCargo(CargoDTO cargo) {
+        if (cargoList == null) {
+            cargoList = new ArrayList();
+        }
         this.cargoList.add(cargo);
     }
 
@@ -55,7 +67,7 @@ public class DeliveryDTO {
     public void setTruckDTO(TruckDTO truckDTO) {
         this.truckDTO = truckDTO;
     }
-    
+
     public LocalDate getDate() {
         return date;
     }

@@ -16,18 +16,28 @@ import java.util.List;
  */
 public class DriverDTO {
 
+    private Long id;
     private String firstName;
     private String lastName;
-    private List<TruckDTO> trucks = new ArrayList<>();
+    private List<TruckDTO> trucks;
 
     public DriverDTO() {
     }
 
     public DriverDTO(Driver driver) {
+        this.id = driver.getId();
         this.firstName = driver.getFirstName();
         this.lastName = driver.getLastName();
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+    
     public String getFirstName() {
         return firstName;
     }
@@ -43,7 +53,7 @@ public class DriverDTO {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
+
     public List<TruckDTO> getTrucks() {
         return trucks;
     }
@@ -53,6 +63,9 @@ public class DriverDTO {
     }
 
     public void addTruck(TruckDTO truck) {
+        if (trucks == null) {
+            trucks = new ArrayList();
+        }
         this.trucks.add(truck);
     }
 

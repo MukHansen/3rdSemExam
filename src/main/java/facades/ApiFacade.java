@@ -5,6 +5,7 @@
  */
 package facades;
 
+import dtos.CargoDTO;
 import dtos.DeliveryDTO;
 import dtos.TruckDTO;
 import dtos.DriverDTO;
@@ -18,6 +19,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.WebApplicationException;
 import utils.EMF_Creator;
 
 /**
@@ -45,18 +47,27 @@ public class ApiFacade {
         EntityManager em = emf.createEntityManager();
         List<DriverDTO> listDTO = new ArrayList<>();
         try {
-            List<Driver> list = (List<Driver>) em.createQuery("SELECT d FROM Driver d",Driver.class).getResultList();
+            List<Driver> list = em.createQuery("SELECT d FROM Driver d", Driver.class).getResultList();
             for (Driver driver : list) {
-                DriverDTO dDTO = new DriverDTO(driver);
-                
+                DriverDTO driverDTO = new DriverDTO(driver);
+                driverDTO.setId(driver.getId());
+
                 List<TruckDTO> trucksDTO = new ArrayList();
                 List<Truck> trucks = driver.getTrucks();
-                
+
                 for (Truck truck : trucks) {
-                    trucksDTO.add(new TruckDTO(truck));
+                    TruckDTO truDTO = new TruckDTO(truck);
+                    truDTO.setId(truck.getId());
+                    List<Driver> driversList = truck.getDrivers();
+
+                    for (Driver truckDrivers : driversList) {
+                        truDTO.addDriver(new DriverDTO(truckDrivers));
+                    }
+
+                    trucksDTO.add(truDTO);
                 }
-                dDTO.setTrucks(trucksDTO);
-                listDTO.add(dDTO);
+                driverDTO.setTrucks(trucksDTO);
+                listDTO.add(driverDTO);
             }
             return listDTO;
         } finally {
@@ -68,9 +79,36 @@ public class ApiFacade {
         EntityManager em = emf.createEntityManager();
         List<TruckDTO> listDTO = new ArrayList<>();
         try {
-            List<Truck> list = em.createQuery("SELECT t FROM Truck t").getResultList();
+            List<Truck> list = em.createQuery("SELECT t FROM Truck t", Truck.class).getResultList();
             for (Truck truck : list) {
-                listDTO.add(new TruckDTO(truck));
+                TruckDTO truckDTO = new TruckDTO(truck);
+                truckDTO.setId(truck.getId());
+
+                List<DriverDTO> driversDTO = new ArrayList();
+                List<Driver> drivers = truck.getDrivers();
+                List<DeliveryDTO> deliveriesDTO = new ArrayList();
+                List<Delivery> deliveries = truck.getDeliveries();
+
+                for (Driver driver : drivers) {
+                    driversDTO.add(new DriverDTO(driver));
+                }
+                for (Delivery delivery : deliveries) {
+                    DeliveryDTO deliDTO = new DeliveryDTO(delivery);
+                    deliDTO.setId(delivery.getId());
+                    List<Cargo> cargoList = delivery.getCargoList();
+
+                    for (Cargo cargo : cargoList) {
+                        CargoDTO carDTO = new CargoDTO(cargo);
+                        carDTO.setId(cargo.getId());
+                        deliDTO.addCargo(carDTO);
+                    }
+
+                    deliveriesDTO.add(deliDTO);
+                }
+
+                truckDTO.setDeliveries(deliveriesDTO);
+                truckDTO.setDrivers(driversDTO);
+                listDTO.add(truckDTO);
             }
             return listDTO;
         } finally {
@@ -105,7 +143,6 @@ public class ApiFacade {
 //            em.close();
 //        }
 //    }
-    
     public List<TruckDTO> getTrucksByDate(LocalDate date) {
         EntityManager em = emf.createEntityManager();
         List<TruckDTO> listDTO = new ArrayList<>();
@@ -135,17 +172,18 @@ public class ApiFacade {
         return new TruckDTO(outTruck);
     }
 
-    public String removeTruck(String name) {
+    public String removeTruck(long id) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Truck> query = em.createQuery(
-                    "SELECT t FROM Truck t WHERE t.name = :name", Truck.class);
-            Truck truck = query.setParameter("name", name).getSingleResult();
-
-            Truck truckToRemove = em.find(Truck.class, truck.getId());
-
+            Truck truckToRemove = em.find(Truck.class, id);
+//            TypedQuery<Truck> query =  em.createQuery(
+//                    "SELECT t FROM Truck t WHERE t.id = :id", Truck.class);
+//            Truck truck = query.setParameter("id", id).getSingleResult();
+//            Truck truckToRemove = em.find(Truck.class, truck.getId());
             em.getTransaction().begin();
+//            em.detach(truckToRemove);
             em.remove(truckToRemove);
+            em.flush();
             em.getTransaction().commit();
         } finally {
             em.close();
@@ -153,22 +191,40 @@ public class ApiFacade {
         return "Truck succesfully removed";
     }
 
-    public String removeDriver(String name) {
+    public String removeDriver(long id) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Driver> query = em.createQuery(
-                    "SELECT d FROM Driver d WHERE d.name = :name", Driver.class);
-            Driver driver = query.setParameter("name", name).getSingleResult();
-
-            Driver driverToRemove = em.find(Driver.class, driver.getId());
+//            TypedQuery<Driver> query = em.createQuery(
+//                    "SELECT d FROM Driver d WHERE d.name = :name", Driver.class);
+//            Driver driver = query.setParameter("name", name).getSingleResult();
+//
+//            Driver driverToRemove = em.find(Driver.class, driver.getId());
+            Driver driverToRemove = em.find(Driver.class, id);
 
             em.getTransaction().begin();
             em.remove(driverToRemove);
+            em.flush();
             em.getTransaction().commit();
         } finally {
             em.close();
         }
-        return "Truck succesfully removed";
+        return "Driver succesfully removed";
+    }
+    
+        public String removeDelivery(long id) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            Delivery deliveryToRemove = em.find(Delivery.class, id);
+
+            em.getTransaction().begin();
+            em.detach(deliveryToRemove);
+            em.remove(deliveryToRemove);
+            em.getTransaction().commit();
+        } finally {
+            em.flush();
+            em.close();
+        }
+        return "Delivery succesfully removed";
     }
 
     public TruckDTO editTruck(TruckDTO inTruck) {
@@ -301,7 +357,7 @@ public class ApiFacade {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
         ApiFacade pf = ApiFacade.getApiFacade(emf);
 //        pf.fillUp();
-//        pf.removeTruck("SuperTruck");
-//        pf.removeDriver("Peter");
+        pf.removeTruck(1);
+//        pf.removeDriver(1);
     }
 }

@@ -17,10 +17,11 @@ import java.util.List;
  */
 public class TruckDTO {
 
+    private Long id;
     private String name;
     private String capacity;
-    private List<DriverDTO> drivers = new ArrayList<>();
-    private List<DeliveryDTO> deliveries = new ArrayList<>();
+    private List<DriverDTO> drivers;
+    private List<DeliveryDTO> deliveries;
 
     public TruckDTO() {
     }
@@ -29,12 +30,14 @@ public class TruckDTO {
         this.name = truck.getName();
         this.capacity = truck.getCapacity();
 
-//        for (Driver driver : truck.getDrivers()) {
-//            drivers.add(new DriverDTO(driver));
-//        }
-//        for (Delivery delivery : truck.getDeliveries()) {
-//            deliveries.add(new DeliveryDTO(delivery));
-//        }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -61,7 +64,10 @@ public class TruckDTO {
         this.drivers = drivers;
     }
 
-    public void addDrivers(DriverDTO driver) {
+    public void addDriver(DriverDTO driver) {
+        if (drivers == null) {
+            drivers = new ArrayList();
+        }
         this.drivers.add(driver);
     }
 
