@@ -210,8 +210,8 @@ public class ApiFacade {
         }
         return "Driver succesfully removed";
     }
-    
-        public String removeDelivery(long id) {
+
+    public String removeDelivery(long id) {
         EntityManager em = emf.createEntityManager();
         try {
             Delivery deliveryToRemove = em.find(Delivery.class, id);
@@ -242,15 +242,33 @@ public class ApiFacade {
         return new TruckDTO(outTruck);
     }
 
-    public DriverDTO editDriver(DriverDTO inDriver) {
+    public DriverDTO createDriver(DriverDTO inDriver) {
         EntityManager em = emf.createEntityManager();
-
         Driver outDriver = new Driver(inDriver.getFirstName(), inDriver.getLastName());
+        Truck truck = new Truck();
+        outDriver.setTrucks(truck);
         try {
+            em.getTransaction().begin();
+            em.persist(outDriver);
+            em.getTransaction().commit();
+        } finally {
+            em.close();
+        }
+        return new DriverDTO(outDriver);
+    }
+
+    public DriverDTO editDriver(Long id, DriverDTO inDriverDTO) {
+        EntityManager em = emf.createEntityManager();
+        Driver outDriver = em.find(Driver.class, id);
+
+        try {
+            outDriver.setFirstName(inDriverDTO.getFirstName());
+            outDriver.setLastName(inDriverDTO.getLastName());
+//            outDriver.setId(inDriverDTO.getId());
+
             em.getTransaction().begin();
             em.merge(outDriver);
             em.getTransaction().commit();
-
         } finally {
             em.close();
         }
@@ -357,7 +375,8 @@ public class ApiFacade {
         EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
         ApiFacade pf = ApiFacade.getApiFacade(emf);
 //        pf.fillUp();
-        pf.removeTruck(1);
-//        pf.removeDriver(1);
+//        pf.fillUp();
+//        pf.removeTruck(1);
+//        pf.removeDriver(2);
     }
 }

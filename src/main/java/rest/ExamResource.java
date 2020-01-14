@@ -149,7 +149,7 @@ public class ExamResource {
     @Path("/deletetruck/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String deleteTruck(@PathParam("name") long id) {
+    public String deleteTruck(@PathParam("id") long id) {
         return FACADE.removeTruck(id);
     }
 
@@ -157,7 +157,7 @@ public class ExamResource {
     @Path("/deletedriver/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String deleteDriver(@PathParam("name") long id) {
+    public String deleteDriver(@PathParam("id") long id) {
         return FACADE.removeDriver(id);
     }
 
@@ -165,7 +165,7 @@ public class ExamResource {
     @Path("/deletedelivery/{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String deleteDelivery(@PathParam("name") long id) {
+    public String deleteDelivery(@PathParam("id") long id) {
         return FACADE.removeDriver(id);
     }
 
@@ -177,20 +177,20 @@ public class ExamResource {
         return FACADE.editTruck(tDTO);
     }
 
-//    @POST
-//    @Path("createdriver")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public DriverDTO createTruck(DriverDTO dDTO) {
-//        return FACADE.createDriver(dDTO);
-//    }
-
-    @PUT
-    @Path("/editdriver")
+    @POST
+    @Path("createdriver")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public DriverDTO editDriver(DriverDTO dDTO) {
-        return FACADE.editDriver(dDTO);
+    public DriverDTO createTruck(DriverDTO dDTO) {
+        return FACADE.createDriver(dDTO);
+    }
+
+    @PUT
+    @Path("/editdriver/{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public DriverDTO editDriver(@PathParam("id") long id, DriverDTO dDTO) {
+        return FACADE.editDriver(id, dDTO);
     }
 
     @GET

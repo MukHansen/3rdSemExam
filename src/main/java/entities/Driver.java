@@ -70,7 +70,7 @@ public class Driver implements Serializable {
         return trucks;
     }
 
-    public void setHobby(Truck truck) {
+    public void setTrucks(Truck truck) {
         this.trucks.add(truck);
         truck.setDriver(this);
     }
