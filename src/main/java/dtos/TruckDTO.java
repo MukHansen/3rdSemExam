@@ -10,6 +10,7 @@ import entities.Driver;
 import entities.Truck;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -86,6 +87,47 @@ public class TruckDTO {
     @Override
     public String toString() {
         return "TruckDTO{" + "name=" + name + ", capacity=" + capacity + ", drivers=" + drivers + ", deliveries=" + deliveries + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.id);
+        hash = 59 * hash + Objects.hashCode(this.name);
+        hash = 59 * hash + Objects.hashCode(this.capacity);
+        hash = 59 * hash + Objects.hashCode(this.drivers);
+        hash = 59 * hash + Objects.hashCode(this.deliveries);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TruckDTO other = (TruckDTO) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.capacity, other.capacity)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.drivers, other.drivers)) {
+            return false;
+        }
+        if (!Objects.equals(this.deliveries, other.deliveries)) {
+            return false;
+        }
+        return true;
     }
 
 }

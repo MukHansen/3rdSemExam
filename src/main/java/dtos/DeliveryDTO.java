@@ -10,6 +10,7 @@ import entities.Delivery;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -95,6 +96,51 @@ public class DeliveryDTO {
     @Override
     public String toString() {
         return "DeliveryDTO{" + "cargo=" + cargoList + ", date=" + date + ", fromLocation=" + fromLocation + ", destination=" + destination + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.cargoList);
+        hash = 37 * hash + Objects.hashCode(this.date);
+        hash = 37 * hash + Objects.hashCode(this.fromLocation);
+        hash = 37 * hash + Objects.hashCode(this.destination);
+        hash = 37 * hash + Objects.hashCode(this.truckDTO);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final DeliveryDTO other = (DeliveryDTO) obj;
+        if (!Objects.equals(this.fromLocation, other.fromLocation)) {
+            return false;
+        }
+        if (!Objects.equals(this.destination, other.destination)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.cargoList, other.cargoList)) {
+            return false;
+        }
+        if (!Objects.equals(this.date, other.date)) {
+            return false;
+        }
+        if (!Objects.equals(this.truckDTO, other.truckDTO)) {
+            return false;
+        }
+        return true;
     }
 
 }

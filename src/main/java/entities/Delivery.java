@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -95,6 +96,51 @@ public class Delivery implements Serializable {
 
     public void setTruck(Truck truck) {
         this.truck = truck;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.date);
+        hash = 79 * hash + Objects.hashCode(this.fromLocation);
+        hash = 79 * hash + Objects.hashCode(this.destination);
+        hash = 79 * hash + Objects.hashCode(this.truck);
+        hash = 79 * hash + Objects.hashCode(this.cargoList);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Delivery other = (Delivery) obj;
+        if (!Objects.equals(this.fromLocation, other.fromLocation)) {
+            return false;
+        }
+        if (!Objects.equals(this.destination, other.destination)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.date, other.date)) {
+            return false;
+        }
+        if (!Objects.equals(this.truck, other.truck)) {
+            return false;
+        }
+        if (!Objects.equals(this.cargoList, other.cargoList)) {
+            return false;
+        }
+        return true;
     }
 
 }

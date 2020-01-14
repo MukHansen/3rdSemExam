@@ -7,6 +7,7 @@ package dtos;
 
 import entities.Cargo;
 import entities.Delivery;
+import java.util.Objects;
 
 /**
  *
@@ -72,6 +73,47 @@ public class CargoDTO {
     @Override
     public String toString() {
         return "CargoDTO{" + "name=" + name + ", weight=" + weight + ", units=" + units + ", delivery=" + delivery + '}';
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 53 * hash + Objects.hashCode(this.id);
+        hash = 53 * hash + Objects.hashCode(this.name);
+        hash = 53 * hash + Objects.hashCode(this.weight);
+        hash = 53 * hash + this.units;
+        hash = 53 * hash + Objects.hashCode(this.delivery);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CargoDTO other = (CargoDTO) obj;
+        if (this.units != other.units) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.weight, other.weight)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.delivery, other.delivery)) {
+            return false;
+        }
+        return true;
     }
 
 }

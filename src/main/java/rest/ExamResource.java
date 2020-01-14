@@ -59,71 +59,6 @@ public class ExamResource {
         return "{\"msg\":\"Hello World\"}";
     }
 
-//    @GET
-//    @Path("id/{id}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public PersonDTO getPersonByID(@PathParam("id") int id) {
-//        return FACADE.getPersonById(id);
-//    }
-//
-//    @GET
-//    @Path("phone/{phoneNumber}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public PersonDTO getPersonByPhone(@PathParam("phoneNumber") String phoneNumber) {
-//        return FACADE.getPersonByPhone(phoneNumber);
-//    }
-//
-//    @GET
-//    @Path("email/{email}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public PersonDTO getPersonByEmail(@PathParam("email") String email) {
-//        return FACADE.getPersonByEmail(email);
-//    }
-//
-//    @GET
-//    @Path("hobby/{name}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<PersonDTO> getAllPersonByHobby(@PathParam("name") String name) {
-//        return FACADE.getAllPersonsByHobby(name);
-//    }
-//
-//    @GET
-//    @Path("allhobbies")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public List<TruckDTO> getAllHobbies() {
-//        return FACADE.getAllHobbies();
-//    }
-//
-//    @POST
-//    @Path("createperson")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public PersonDTO createPerson(PersonDTO pDTO) {
-//        return FACADE.createDriver(pDTO);
-//    }
-//
-//    @DELETE
-//    @Path("/deleteperson/{id}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public PersonDTO deletePerson(@PathParam("id") int id) {
-//        return FACADE.deletePerson(id);
-//    }
-//
-//    @PUT
-//    @Path("/editperson/{id}")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public PersonDTO editPerson(@PathParam("id") int id, PersonDTO pDTO) {
-//        return FACADE.editPerson(id, pDTO);
-//    }
-//    @POST
-//    @Path("createTruck")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public TruckDTO createTruck(TruckDTO tDTO) {
-//        return FACADE.createTruck(tDTO);
-//    }
     @GET
     @Path("alltrucks")
     @Produces(MediaType.APPLICATION_JSON)
@@ -136,13 +71,6 @@ public class ExamResource {
     @Produces(MediaType.APPLICATION_JSON)
     public List<DriverDTO> getAllDrivers() {
         return FACADE.getAllDrivers();
-    }
-
-    @GET
-    @Path("alldeliveries")
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<DeliveryDTO> getAllDeliveries() {
-        return FACADE.getAllDeliveries();
     }
 
     @DELETE

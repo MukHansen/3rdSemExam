@@ -130,19 +130,6 @@ public class ApiFacade {
         }
     }
 
-//    public List<DeliveryDTO> getDriversAndTrucksByDate() {
-//        EntityManager em = emf.createEntityManager();
-//        List<DeliveryDTO> listDTO = new ArrayList<>();
-//        try {
-//            List<Delivery> list = em.createQuery("SELECT d FROM Delivery d", Delivery.class).getResultList();
-//            for (Delivery delivery : list) {
-//                listDTO.add(new DeliveryDTO(delivery));
-//            }
-//            return listDTO;
-//        } finally {
-//            em.close();
-//        }
-//    }
     public List<TruckDTO> getTrucksByDate(LocalDate date) {
         EntityManager em = emf.createEntityManager();
         List<TruckDTO> listDTO = new ArrayList<>();
@@ -371,12 +358,12 @@ public class ApiFacade {
         return "{\"status\":\"filled\"}";
     }
 
-    public static void main(String[] args) {
-        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
-        ApiFacade pf = ApiFacade.getApiFacade(emf);
-//        pf.fillUp();
-//        pf.fillUp();
-//        pf.removeTruck(1);
-//        pf.removeDriver(2);
-    }
+//    public static void main(String[] args) {
+//        EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory(EMF_Creator.DbSelector.DEV, EMF_Creator.Strategy.CREATE);
+//        ApiFacade pf = ApiFacade.getApiFacade(emf);
+////        pf.fillUp();
+////        pf.fillUp();
+////        pf.removeTruck(1);
+////        pf.removeDriver(2);
+//    }
 }

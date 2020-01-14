@@ -8,6 +8,7 @@ package entities;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -94,4 +95,45 @@ public class Truck implements Serializable {
         return "Truck{" + "name=" + name + ", capacity=" + capacity + ", drivers=" + drivers + '}';
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.name);
+        hash = 79 * hash + Objects.hashCode(this.capacity);
+        hash = 79 * hash + Objects.hashCode(this.drivers);
+        hash = 79 * hash + Objects.hashCode(this.deliveries);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Truck other = (Truck) obj;
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.capacity, other.capacity)) {
+            return false;
+        }
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.drivers, other.drivers)) {
+            return false;
+        }
+        if (!Objects.equals(this.deliveries, other.deliveries)) {
+            return false;
+        }
+        return true;
+    }
+    
 }
